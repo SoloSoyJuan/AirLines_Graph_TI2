@@ -56,7 +56,7 @@ public class ListGraph<T> implements IGraph<T> {
         boolean added = false;
         IVertex vet1 = getVertex(value1);
         IVertex vet2 = getVertex(value2);
-        if(!weighted){
+        if(weighted){
             weight = 0;
         }
         if (vet1 != null && vet2 != null) {
@@ -81,12 +81,11 @@ public class ListGraph<T> implements IGraph<T> {
     }
     //--------------------------------------------------------(Methods)
 
-    /**
-     * set the attribute visited of all vertex in false
-     */
-    private void setVisited(){
+    @Override
+    public void setVisited(){
         for (IVertex<T> v: graph) {
             v.setVisited(false);
+            v.setParent(null);
         }
     }
     @Override
@@ -130,6 +129,7 @@ public class ListGraph<T> implements IGraph<T> {
         current.setVisited(true);
         for (IEdge<T> e: current.getEdges()) {
             if (!e.getEnd().getVisited()) {
+                e.getEnd().setParent(current);
                 dfs(e.getEnd());
             }
         }
@@ -137,14 +137,15 @@ public class ListGraph<T> implements IGraph<T> {
 
     public boolean connected(){
         boolean connected = true;
+        dfs();
+        int a = 0;
         for (IVertex<T> v: graph) {
-            bfs(v);
-            for (IVertex<T> ve: graph) {
-                if(!ve.getVisited()){
-                    connected = false;
-                    break;
-                }
+            if(v.getParent() == null){
+                a++;
             }
+        }
+        if (a>1){
+            connected = false;
         }
         return connected;
     }

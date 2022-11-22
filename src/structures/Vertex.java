@@ -8,6 +8,7 @@ public class Vertex<T> implements IVertex<T> {
     private T value;
     private List<IEdge<T>> edges;
     private boolean visited;
+    private IVertex<T> parent;
     //--------------------------------------------------------(Getters, Setters and Constructor)
     @Override
     public T getValue() {
@@ -39,6 +40,16 @@ public class Vertex<T> implements IVertex<T> {
         this.edges = edges;
     }
 
+    @Override
+    public IVertex<T> getParent(){
+        return parent;
+    }
+
+    @Override
+    public void setParent(IVertex<T> parent){
+        this.parent = parent;
+    }
+
     /**
      *  Constructor of the class Vertex
      * @param value the value of the vertex
@@ -47,6 +58,7 @@ public class Vertex<T> implements IVertex<T> {
         this.value = value;
         this.visited = false;
         this.edges = new ArrayList<>();
+        this.parent = null;
     }
     //--------------------------------------------------------(Methods)
 

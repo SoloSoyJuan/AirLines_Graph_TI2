@@ -39,6 +39,10 @@ public interface IVertex<T> {
      */
     public void setEdges(List<IEdge<T>> edges);
 
+    public IVertex<T> getParent();
+
+    public void setParent(IVertex<T> parent);
+
     /**
      * add a new edge
      * @param vertex the adjacent vertex

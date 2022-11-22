@@ -41,7 +41,10 @@ public interface IGraph<T> {
      * @return true if the edge was added
      */
     public boolean addEdge(T value1, T value2, double weight);
-
+    /**
+     * set the attribute visited of all vertex in false
+     */
+    public void setVisited();
     /**
      * trigger dfs path on the graph
      */

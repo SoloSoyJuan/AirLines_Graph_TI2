@@ -34,5 +34,13 @@ public class Edge<T> implements IEdge<T> {
         this.end = end;
         this.weight = weight;
     }
+
+    /**
+     * Constructor method pof class Edge
+     * @param weight the weight of the edge
+     */
+    public Edge(double weight){
+        this.weight = weight;
+    }
     //--------------------------------------------------------(Methods)
 }

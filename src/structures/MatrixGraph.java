@@ -1,9 +1,6 @@
 package structures;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class MatrixGraph<T> implements IGraph<T> {
     //--------------------------------------------------------(Attributes)
@@ -97,6 +94,7 @@ public class MatrixGraph<T> implements IGraph<T> {
         for (IVertex<T> v: vertex) {
             v.setVisited(false);
             v.setParent(null);
+            v.setDistance(Double.MAX_VALUE);
         }
     }
     @Override
@@ -154,5 +152,34 @@ public class MatrixGraph<T> implements IGraph<T> {
             connected = false;
         }
         return connected;
+    }
+
+    @Override
+    public void dijkstra(T value){
+        setVisited();
+        int vert = getPostVertex(value);
+        PriorityQueue<IVertex<T>> pq = new PriorityQueue<>();
+        pq.add(vertex.get(vert));
+        while(!pq.isEmpty()){
+
+        }
+    }
+
+    @Override
+    public Edge<T>[][] floydWarshall(T value){
+        setVisited();
+        Edge<T>[][] secGraph = (Edge<T>[][]) graph.clone();
+
+        for (int i = 0; i < vertex.size(); i++) {
+            for (int j = 0; j < vertex.size(); j++) {
+                for (int k = 0; k < vertex.size(); k++) {
+                    double alt = secGraph[j][i].getWeight()+secGraph[i][k].getWeight();
+                    if(secGraph[j][k].getWeight()>alt){
+                        secGraph[j][k] = new Edge<>(alt);
+                    }
+                }
+            }
+        }
+        return secGraph;
     }
 }

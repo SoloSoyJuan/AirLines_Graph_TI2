@@ -1,9 +1,6 @@
 package structures;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class ListGraph<T> implements IGraph<T> {
     //--------------------------------------------------------(Attributes)
@@ -86,6 +83,7 @@ public class ListGraph<T> implements IGraph<T> {
         for (IVertex<T> v: graph) {
             v.setVisited(false);
             v.setParent(null);
+            v.setDistance(Double.MAX_VALUE);
         }
     }
     @Override
@@ -148,5 +146,30 @@ public class ListGraph<T> implements IGraph<T> {
             connected = false;
         }
         return connected;
+    }
+
+    @Override
+    public void dijkstra(T value){
+        setVisited();
+        IVertex<T> vert = getVertex(value);
+        vert.setDistance(0);
+        PriorityQueue<IVertex<T>> pq = new PriorityQueue<>();
+        pq.add(vert);
+        while(!pq.isEmpty()){
+            IVertex<T> current = pq.poll();
+            for (IEdge<T> e: current.getEdges()) {
+                double alt = current.getDistance() + e.getWeight();
+                if(alt < e.getEnd().getDistance()){
+                    e.getEnd().setDistance(alt);
+                    e.getEnd().setParent(current);
+                    pq.add(e.getEnd());
+                }
+            }
+        }
+    }
+
+    @Override
+    public Edge<T>[][] floydWarshall(T value){
+        return null;
     }
 }

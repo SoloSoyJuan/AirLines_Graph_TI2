@@ -9,6 +9,8 @@ public class Vertex<T> implements IVertex<T> {
     private List<IEdge<T>> edges;
     private boolean visited;
     private IVertex<T> parent;
+
+    private double distance;
     //--------------------------------------------------------(Getters, Setters and Constructor)
     @Override
     public T getValue() {
@@ -48,6 +50,14 @@ public class Vertex<T> implements IVertex<T> {
     @Override
     public void setParent(IVertex<T> parent){
         this.parent = parent;
+    }
+
+    public double getDistance(){
+        return distance;
+    }
+
+    public void setDistance(double distance){
+        this.distance = distance;
     }
 
     /**
@@ -94,5 +104,10 @@ public class Vertex<T> implements IVertex<T> {
             }
         }
         return post;
+    }
+
+    @Override
+    public int compareTo(IVertex<T> o) {
+        return (int) (this.distance - o.getDistance());
     }
 }

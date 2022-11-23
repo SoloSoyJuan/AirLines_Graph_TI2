@@ -58,4 +58,8 @@ public interface IGraph<T> {
     public void bfs(T value);
 
     public boolean connected();
+
+    public void dijkstra(T value);
+
+    public Edge<T>[][] floydWarshall(T value);
 }

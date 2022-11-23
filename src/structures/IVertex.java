@@ -2,7 +2,7 @@ package structures;
 
 import java.util.List;
 
-public interface IVertex<T> {
+public interface IVertex<T> extends Comparable<IVertex<T>> {
     /**
      * get method of Attribute value
      * @return the value of the vertex
@@ -42,6 +42,10 @@ public interface IVertex<T> {
     public IVertex<T> getParent();
 
     public void setParent(IVertex<T> parent);
+
+    public double getDistance();
+
+    public void setDistance(double distance);
 
     /**
      * add a new edge

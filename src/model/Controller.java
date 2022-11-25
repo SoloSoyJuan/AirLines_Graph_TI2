@@ -12,6 +12,8 @@ public class Controller {
     private IGraph<Airport> airports;
     private List<Airport> names;
 
+    List<List<IVertex<Airport>>> groups;
+
     public Controller(int graph){
         if(graph == 1){
             airports = new MatrixGraph<>(true, true, 50);
@@ -84,13 +86,31 @@ public class Controller {
     public String showGroups(){
         String info = "";
         airports.createdGroups();
-        List<List<IVertex<Airport>>> groups = airports.getGroups();
+        groups = airports.getGroups();
         for (List<IVertex<Airport>> li: groups) {
             for (IVertex<Airport> a: li) {
                 info += "--"+ a.getValue().getName();
             }
             info += "\n";
         }
+        return info;
+    }
+
+    public String showOneGroup(String name){
+        String info = "";
+        Airport port = null;
+        for (Airport a: names) {
+            if (Objects.equals(a.getName(), name)) {
+                port = a;
+                break;
+            }
+        }
+        airports.createOneGroup(port);
+        groups = airports.getGroups();
+        List<IVertex<Airport>> group = groups.get(0);
+            for (IVertex<Airport> v: group) {
+                info += "--"+ v.getValue().getName();
+            }
         return info;
     }
 }

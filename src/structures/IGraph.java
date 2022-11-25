@@ -67,4 +67,5 @@ public interface IGraph<T> {
 
     public Edge<T>[][] floydWarshall(T value);
     public void createdGroups();
+    public void createOneGroup(T value);
 }

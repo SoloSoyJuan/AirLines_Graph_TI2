@@ -179,6 +179,7 @@ public class ListGraph<T> implements IGraph<T> {
     public Edge<T>[][] floydWarshall(T value){
         return null;
     }
+
     @Override
     public void createdGroups(){
         groups = new ArrayList<>();
@@ -197,5 +198,19 @@ public class ListGraph<T> implements IGraph<T> {
                groups.add(info);
             }
         }
+    }
+
+    @Override
+    public void createOneGroup(T value){
+        groups = new ArrayList<>();
+        IVertex<T> vert = getVertex(value);
+        bfs(vert);
+        ArrayList<IVertex<T>> theGroup = new ArrayList<>();
+        for (IVertex<T> v: graph) {
+            if (v.getVisited()) {
+                theGroup.add(v);
+            }
+        }
+        groups.add(theGroup);
     }
 }

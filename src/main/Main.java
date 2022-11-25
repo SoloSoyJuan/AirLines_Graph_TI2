@@ -28,7 +28,7 @@ public class Main {
         int option = 0;
         System.out.println("******** Main Menu ********\n"+
                             "(1) Show the Groups of Airports\n"+
-                            "(2) \n"+
+                            "(2) Show the Group of one Airport\n"+
                             "(3) \n"+
                             "(4) \n"+
                             "(0) Exit \n");
@@ -43,7 +43,9 @@ public class Main {
                 System.out.println(con.showGroups());
                 break;
             case 2:
-                System.out.println("case 2");
+                System.out.println("Type the Name of the Airport\n");
+                String name = sc.nextLine();
+                System.out.println(con.showOneGroup(name));
                 break;
             case 3:
                 System.out.println("case 3");

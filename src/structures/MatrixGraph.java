@@ -195,4 +195,9 @@ public class MatrixGraph<T> implements IGraph<T> {
         dfs();
 
     }
+
+    @Override
+    public void createOneGroup(T value) {
+
+    }
 }

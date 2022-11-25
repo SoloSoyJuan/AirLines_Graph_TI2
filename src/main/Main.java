@@ -2,6 +2,7 @@ package main;
 
 import model.Controller;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -9,14 +10,14 @@ public class Main {
     public static Controller con;
     public static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("choose type of graph: \n"+
                             "(1) Matrix graph \n"+
                             "(2) List graph");
         int option = sc.nextInt();
         sc.nextLine();
         con = new Controller(option);
-
+        con.loadData();
         do {
             option = mainMenu();
             actions(option);

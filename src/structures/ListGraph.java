@@ -53,7 +53,7 @@ public class ListGraph<T> implements IGraph<T> {
         boolean added = false;
         IVertex vet1 = getVertex(value1);
         IVertex vet2 = getVertex(value2);
-        if(weighted){
+        if(!weighted){
             weight = 0;
         }
         if (vet1 != null && vet2 != null) {

@@ -27,7 +27,7 @@ public class Main {
     public static int mainMenu(){
         int option = 0;
         System.out.println("******** Main Menu ********\n"+
-                            "(1) \n"+
+                            "(1) Show the Groups of Airports\n"+
                             "(2) \n"+
                             "(3) \n"+
                             "(4) \n"+
@@ -40,7 +40,7 @@ public class Main {
     public static void actions(int option){
         switch (option){
             case 1:
-                System.out.println("case 1");
+                System.out.println(con.showGroups());
                 break;
             case 2:
                 System.out.println("case 2");

@@ -1,6 +1,7 @@
 package model;
 
 import structures.IGraph;
+import structures.IVertex;
 import structures.ListGraph;
 import structures.MatrixGraph;
 
@@ -78,5 +79,18 @@ public class Controller {
             return pass1;
         }
         return false;
+    }
+
+    public String showGroups(){
+        String info = "";
+        airports.createdGroups();
+        List<List<IVertex<Airport>>> groups = airports.getGroups();
+        for (List<IVertex<Airport>> li: groups) {
+            for (IVertex<Airport> a: li) {
+                info += "--"+ a.getValue().getName();
+            }
+            info += "\n";
+        }
+        return info;
     }
 }

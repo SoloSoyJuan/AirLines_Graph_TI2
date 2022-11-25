@@ -8,6 +8,7 @@ public class ListGraph<T> implements IGraph<T> {
     private boolean directed;
     private int totalVertex;
     private List<IVertex<T>> graph;
+    private List<List<IVertex<T>>> groups;
     //--------------------------------------------------------(Getters, Setters and Constructor)
     @Override
     public boolean isWeighted() {
@@ -22,6 +23,11 @@ public class ListGraph<T> implements IGraph<T> {
     @Override
     public int totalVertex() {
         return totalVertex;
+    }
+
+    @Override
+    public List<List<IVertex<T>>> getGroups(){
+        return groups;
     }
 
     @Override
@@ -75,6 +81,7 @@ public class ListGraph<T> implements IGraph<T> {
         this.weighted = weighted;
         this.directed = directed;
         this.graph = new ArrayList<>();
+        this.groups = new ArrayList<>();
     }
     //--------------------------------------------------------(Methods)
 
@@ -171,5 +178,24 @@ public class ListGraph<T> implements IGraph<T> {
     @Override
     public Edge<T>[][] floydWarshall(T value){
         return null;
+    }
+    @Override
+    public void createdGroups(){
+        groups = new ArrayList<>();
+        for (IVertex<T> v: graph) {
+            ArrayList<IVertex<T>> info = new ArrayList<>();
+            dfs();
+            if(v.getParent()==null){
+                bfs(v);
+                for (IVertex<T> e: graph) {
+                    if (e.getVisited()) {
+                        info.add(e);
+                    }
+                }
+            }
+            if(!info.isEmpty()){
+               groups.add(info);
+            }
+        }
     }
 }

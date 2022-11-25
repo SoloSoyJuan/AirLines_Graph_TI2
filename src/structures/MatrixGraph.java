@@ -9,6 +9,8 @@ public class MatrixGraph<T> implements IGraph<T> {
     private int totalVertex;
     private IEdge<T> [][] graph;
     private List<IVertex<T>> vertex;
+
+    private List<List<IVertex<T>>> groups;
     //--------------------------------------------------------(Getters, Setters and Constructor)
     @Override
     public boolean isWeighted() {
@@ -35,6 +37,11 @@ public class MatrixGraph<T> implements IGraph<T> {
             added = true;
         }
         return added;
+    }
+
+    @Override
+    public List<List<IVertex<T>>> getGroups() {
+        return groups;
     }
 
     @Override
@@ -181,5 +188,11 @@ public class MatrixGraph<T> implements IGraph<T> {
             }
         }
         return secGraph;
+    }
+
+    @Override
+    public void createdGroups(){
+        dfs();
+
     }
 }

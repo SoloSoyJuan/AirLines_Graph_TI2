@@ -1,5 +1,7 @@
 package structures;
 
+import java.util.List;
+
 public interface IGraph<T> {
     /**
      * return if the edges of the graph has weight
@@ -25,6 +27,8 @@ public interface IGraph<T> {
      * @return true if the vertex was added
      */
     public boolean addVertex(T value);
+
+    public List<List<IVertex<T>>> getGroups();
 
     /**
      * return a vertex you search if has the same value
@@ -62,4 +66,5 @@ public interface IGraph<T> {
     public void dijkstra(T value);
 
     public Edge<T>[][] floydWarshall(T value);
+    public void createdGroups();
 }

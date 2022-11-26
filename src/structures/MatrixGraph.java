@@ -1,5 +1,6 @@
 package structures;
 
+import java.io.IOException;
 import java.util.*;
 
 public class MatrixGraph<T> implements IGraph<T> {
@@ -180,10 +181,12 @@ public class MatrixGraph<T> implements IGraph<T> {
         for (int i = 0; i < vertex.size(); i++) {
             for (int j = 0; j < vertex.size(); j++) {
                 for (int k = 0; k < vertex.size(); k++) {
-                    if (secGraph[j][i] != null && secGraph[i][k] != null && secGraph[j][k] != null) {
+                    if (secGraph[j][i] != null && secGraph[i][k] != null) {
                         double alt = secGraph[j][i].getWeight()+secGraph[i][k].getWeight();
-                        if(secGraph[j][k].getWeight()>alt){
+                        if(secGraph[j][k] == null || secGraph[j][k].getWeight()>alt){
                             secGraph[j][k] = new Edge<>(alt);
+                            vertex.get(i).setParent(vertex.get(j));
+                            vertex.get(k).setParent(vertex.get(i));
                         }
                     }
                 }
@@ -228,12 +231,12 @@ public class MatrixGraph<T> implements IGraph<T> {
     }
 
     @Override
-    public void createTheFly(T value1, T value2) {
+    public void createTheFly(T value1, T value2) throws IOException {
         groups = new ArrayList<>();
         ArrayList<IVertex<T>> group = new ArrayList<>();
         IVertex<T> current = getVertex(value2);
         floydWarshall(value1);
-        while (current != null && !current.getValue().equals(value1)){
+        while (!current.getValue().equals(value1) || !current.getValue().equals(value2)){
             group.add(current);
             current = current.getParent();
         }

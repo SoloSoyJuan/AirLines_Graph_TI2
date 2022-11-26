@@ -130,7 +130,11 @@ public class Controller {
                 break;
             }
         }
-        airports.createTheFly(port1, port2);
+        try{
+            airports.createTheFly(port1, port2);
+        }catch (IOException e){
+
+        }
         groups = airports.getGroups();
         List<IVertex<Airport>> port = groups.get(0);
         for (int i = port.size()-1; i >= 0; i--) {

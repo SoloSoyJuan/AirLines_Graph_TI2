@@ -1,5 +1,6 @@
 package structures;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IGraph<T> {
@@ -69,5 +70,5 @@ public interface IGraph<T> {
     public void createdGroups();
     public void createOneGroup(T value);
 
-    public void createTheFly(T value1, T value2);
+    public void createTheFly(T value1, T value2) throws IOException;
 }

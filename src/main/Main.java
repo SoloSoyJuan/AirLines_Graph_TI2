@@ -30,6 +30,8 @@ public class Main {
                             "(1) Show the Groups of Airports\n"+
                             "(2) Show the Group of one Airport\n"+
                             "(3) Show the best fly for you\n"+
+                            "(4) Add a new Airport\n"+
+                            "(5) Add a new connection\n"+
                             "(0) Exit \n");
         option = sc.nextInt();
         sc.nextLine();
@@ -37,21 +39,46 @@ public class Main {
     }
 
     public static void actions(int option){
+        String name;
+        String name2;
         switch (option){
             case 1:
                 System.out.println("\nGroups of Airports:\n"+con.showGroups());
                 break;
             case 2:
                 System.out.println("Type the Name of the Airport\n");
-                String name = sc.nextLine();
+                name = sc.nextLine();
                 System.out.println(con.showOneGroup(name));
                 break;
             case 3:
                 System.out.println("Type the Name of the departure flight");
-                String name1 = sc.nextLine();
+                name = sc.nextLine();
                 System.out.println("Type the Name of the arrival flight");
-                String name2 = sc.nextLine();
-                System.out.println("The best fly is:\n"+con.createTheFly(name1,name2));
+                name2 = sc.nextLine();
+                System.out.println("The best fly is:\n"+con.createTheFly(name,name2));
+                break;
+            case 4:
+                System.out.println("Type the Name of the new City: example (Denver,Colorado)\n");
+                name = sc.nextLine();
+                if(con.addNewAirport(name)){
+                    System.out.println("Airport added successfully\n");
+                }else{
+                    System.out.println("Airport all ready exist\n");
+                }
+                break;
+            case 5:
+                System.out.println("Type the Name of the departure flight");
+                name = sc.nextLine();
+                System.out.println("Type the Name of the arrival flight");
+                name2 = sc.nextLine();
+                System.out.println("Type the minutes of the fly");
+                double time = sc.nextInt();
+                sc.nextLine();
+                if(con.addConnection(name, name2, time)){
+                    System.out.println("Connection added successfully\n");
+                }else{
+                    System.out.println("One of the Airports does not exist\n");
+                }
                 break;
             case 0:
                 System.out.println("Goodbye");

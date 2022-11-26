@@ -113,4 +113,29 @@ public class Controller {
             }
         return info;
     }
+
+    public String createTheFly(String name1, String name2){
+        String info = "";
+        Airport port1 = null;
+        Airport port2 = null;
+        for (Airport a: names) {
+            if (Objects.equals(a.getName(), name1)) {
+                port1 = a;
+                break;
+            }
+        }
+        for (Airport a: names) {
+            if (Objects.equals(a.getName(), name2)) {
+                port2 = a;
+                break;
+            }
+        }
+        airports.createTheFly(port1, port2);
+        groups = airports.getGroups();
+        List<IVertex<Airport>> port = groups.get(0);
+        for (int i = port.size()-1; i >= 0; i--) {
+            info += "--"+ port.get(i).getValue().getName();
+        }
+        return info;
+    }
 }

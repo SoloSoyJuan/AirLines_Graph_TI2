@@ -29,8 +29,7 @@ public class Main {
         System.out.println("******** Main Menu ********\n"+
                             "(1) Show the Groups of Airports\n"+
                             "(2) Show the Group of one Airport\n"+
-                            "(3) \n"+
-                            "(4) \n"+
+                            "(3) Show the best fly for you\n"+
                             "(0) Exit \n");
         option = sc.nextInt();
         sc.nextLine();
@@ -40,7 +39,7 @@ public class Main {
     public static void actions(int option){
         switch (option){
             case 1:
-                System.out.println(con.showGroups());
+                System.out.println("\nGroups of Airports:\n"+con.showGroups());
                 break;
             case 2:
                 System.out.println("Type the Name of the Airport\n");
@@ -48,7 +47,11 @@ public class Main {
                 System.out.println(con.showOneGroup(name));
                 break;
             case 3:
-                System.out.println("case 3");
+                System.out.println("Type the Name of the departure flight");
+                String name1 = sc.nextLine();
+                System.out.println("Type the Name of the arrival flight");
+                String name2 = sc.nextLine();
+                System.out.println("The best fly is:\n"+con.createTheFly(name1,name2));
                 break;
             case 0:
                 System.out.println("Goodbye");

@@ -200,4 +200,9 @@ public class MatrixGraph<T> implements IGraph<T> {
     public void createOneGroup(T value) {
 
     }
+
+    @Override
+    public void createTheFly(T value1, T value2) {
+
+    }
 }

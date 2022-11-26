@@ -213,4 +213,18 @@ public class ListGraph<T> implements IGraph<T> {
         }
         groups.add(theGroup);
     }
+
+    @Override
+    public void createTheFly(T value1, T value2){
+        groups = new ArrayList<>();
+        ArrayList<IVertex<T>> group = new ArrayList<>();
+        IVertex<T> vert1 = getVertex(value1);
+        IVertex<T> current = getVertex(value2);
+        dijkstra(value1);
+        while (current != null){
+            group.add(current);
+            current = current.getParent();
+        }
+        groups.add(group);
+    }
 }

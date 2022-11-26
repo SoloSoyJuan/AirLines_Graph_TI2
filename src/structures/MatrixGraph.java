@@ -118,7 +118,7 @@ public class MatrixGraph<T> implements IGraph<T> {
     private void dfs(int current){
         vertex.get(current).setVisited(true);
         for (int i = 0; i < graph.length; i++) {
-            if(graph[current][i].getWeight() != 0){
+            if(graph[current][i] != null && graph[current][i].getWeight() != 0 && !vertex.get(i).getVisited()){
                 vertex.get(i).setParent(vertex.get(current));
                 dfs(i);
             }
@@ -135,7 +135,7 @@ public class MatrixGraph<T> implements IGraph<T> {
         while (!Q.isEmpty()){
             int current = Q.poll();
             for (int i = 0; i < graph.length; i++) {
-                if (graph[current][i].getWeight() != 0) {
+                if (graph[current][i] != null && graph[current][i].getWeight() != 0) {
                     if(!vertex.get(i).getVisited()){
                         vertex.get(i).setVisited(true);
                         Q.add(i);
@@ -180,9 +180,11 @@ public class MatrixGraph<T> implements IGraph<T> {
         for (int i = 0; i < vertex.size(); i++) {
             for (int j = 0; j < vertex.size(); j++) {
                 for (int k = 0; k < vertex.size(); k++) {
-                    double alt = secGraph[j][i].getWeight()+secGraph[i][k].getWeight();
-                    if(secGraph[j][k].getWeight()>alt){
-                        secGraph[j][k] = new Edge<>(alt);
+                    if (secGraph[j][i] != null && secGraph[i][k] != null && secGraph[j][k] != null) {
+                        double alt = secGraph[j][i].getWeight()+secGraph[i][k].getWeight();
+                        if(secGraph[j][k].getWeight()>alt){
+                            secGraph[j][k] = new Edge<>(alt);
+                        }
                     }
                 }
             }
@@ -192,17 +194,49 @@ public class MatrixGraph<T> implements IGraph<T> {
 
     @Override
     public void createdGroups(){
-        dfs();
+        groups = new ArrayList<>();
+        for (IVertex<T> v: vertex) {
+            ArrayList<IVertex<T>> info = new ArrayList<>();
+            dfs();
+            if(v.getParent()==null){
+                bfs(v.getValue());
+                for (IVertex<T> e: vertex) {
+                    if (e.getVisited()) {
+                        info.add(e);
+                    }
+                }
+            }
+            if(!info.isEmpty()){
+                groups.add(info);
+            }
+        }
 
     }
 
     @Override
     public void createOneGroup(T value) {
-
+        groups = new ArrayList<>();
+        IVertex<T> vert = getVertex(value);
+        bfs(vert.getValue());
+        ArrayList<IVertex<T>> theGroup = new ArrayList<>();
+        for (IVertex<T> v: vertex) {
+            if (v.getVisited()) {
+                theGroup.add(v);
+            }
+        }
+        groups.add(theGroup);
     }
 
     @Override
     public void createTheFly(T value1, T value2) {
-
+        groups = new ArrayList<>();
+        ArrayList<IVertex<T>> group = new ArrayList<>();
+        IVertex<T> current = getVertex(value2);
+        floydWarshall(value1);
+        while (current != null && !current.getValue().equals(value1)){
+            group.add(current);
+            current = current.getParent();
+        }
+        groups.add(group);
     }
 }
